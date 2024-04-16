@@ -1,53 +1,50 @@
 return {
   {
     "nvim-neotest/neotest",
+    event = "VeryLazy",
     dependencies = {
+      "nvim-lua/plenary.nvim",
       "nvim-neotest/nvim-nio",
-      "haydenmeade/neotest-jest",
-      "marilari88/neotest-vitest",
+      "nvim-neotest/neotest-python",
+      "nvim-neotest/neotest-plenary",
+      "nvim-neotest/neotest-jest",
+      "Issafalcon/neotest-dotnet",
+      -- { dir = "~/repos/neotest-dotnet" },
     },
-    keys = {
-      {
-        "<leader>tl",
-        function()
-          require("neotest").run.run_last()
-        end,
-        desc = "Run Last Test",
-      },
-      {
-        "<leader>tL",
-        function()
-          require("neotest").run.run_last({ strategy = "dap" })
-        end,
-        desc = "Debug Last Test",
-      },
-      {
-        "<leader>tw",
-        "<cmd>lua require('neotest').run.run({ jestCommand = 'jest --watch ' })<cr>",
-        desc = "Run Watch",
-      },
-    },
-    opts = function(_, opts)
-      table.insert(
-        opts.adapters,
-        require("neotest-jest")({
-          jestCommand = "npm test --",
-          jestConfigFile = "custom.jest.config.ts",
-          env = { CI = true },
-          cwd = function()
-            return vim.fn.getcwd()
-          end,
-        })
-      )
-      table.insert(opts.adapters, require("neotest-vitest"))
+    config = function()
+      local neotest = require("neotest")
+      neotest.setup({
+        log_level = 1, -- For verbose logs
+        adapters = {
+          require("neotest-python")({
+            dap = { justMyCode = false },
+          }),
+          require("neotest-plenary"),
+          require("neotest-dotnet")({
+            discovery_root = "solution",
+          }),
+          require("neotest-jest")({
+            jestCommand = "npm test -- --runInBand --no-cache --watchAll=false",
+            env = { CI = "true" },
+            cwd = function(path)
+              return vim.fn.getcwd()
+            end,
+          }),
+        },
+        icons = {
+          expanded = "",
+          child_prefix = "",
+          child_indent = "",
+          final_child_prefix = "",
+          non_collapsible = "",
+          collapsed = "",
+          passed = "",
+          running = "",
+          failed = "",
+          unknown = "",
+          skipped = "",
+        },
+      })
     end,
   },
 }
---[[ return {
-  "nvim-neotest/neotest",
-  requires = {
-    {
-      "Issafalcon/neotest-dotnet",
-    },
-  },
-} ]]
