@@ -5,6 +5,9 @@
 local keymap = vim.keymap
 local opt = { noremap = true, silent = true }
 
+--formatting keymap for neoformat just for chsarp
+keymap.set("n", "<leader>nf", ":Neoformat<CR>", opt)
+
 keymap.set("n", "<A-j>", ":m .+1<CR>==", opt) -- move line up(n)
 keymap.set("n", "<A-k>", ":m .-2<CR>==", opt) -- move line down(n)
 keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", opt) -- move line up(v)
