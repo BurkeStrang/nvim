@@ -1,4 +1,5 @@
-return {
+return {}
+--[[ return {
   {
     "nvim-neotest/neotest",
     event = "VeryLazy",
@@ -47,4 +48,4 @@ return {
       })
     end,
   },
-}
+} ]]
