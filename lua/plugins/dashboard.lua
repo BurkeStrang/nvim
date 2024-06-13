@@ -16,7 +16,7 @@ return {
         header = vim.split(logo, "\n"),
         -- stylua: ignore
         center = {
-          { action = LazyVim.telescope("files"),                                 desc = " Find File",       icon = " ", key = "f", desc_hl = "DashboardDesc", icon_hl = "DashboardIcon", key_hl = "DashboardKey"},
+          { action = LazyVim.pick("files"),                                 desc = " Find File",       icon = " ", key = "f", desc_hl = "DashboardDesc", icon_hl = "DashboardIcon", key_hl = "DashboardKey"},
           { action = "ene | startinsert",                                        desc = " New File",        icon = " ", key = "n", desc_hl = "DashboardDesc", icon_hl = "DashboardIcon", key_hl = "DashboardKey" },
           { action = "Telescope oldfiles",                                       desc = " Recent Files",    icon = " ", key = "r", desc_hl = "DashboardDesc", icon_hl = "DashboardIcon", key_hl = "DashboardKey" },
           { action = "Telescope live_grep",                                      desc = " Find Text",       icon = " ", key = "g", desc_hl = "DashboardDesc", icon_hl = "DashboardIcon", key_hl = "DashboardKey" },
