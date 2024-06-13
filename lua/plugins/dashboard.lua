@@ -16,11 +16,11 @@ return {
         header = vim.split(logo, "\n"),
         -- stylua: ignore
         center = {
-          { action = LazyVim.pick("files"),                                 desc = " Find File",       icon = " ", key = "f", desc_hl = "DashboardDesc", icon_hl = "DashboardIcon", key_hl = "DashboardKey"},
+          { action = LazyVim.pick("files"),                                     desc = " Find File",       icon = " ", key = "f", desc_hl = "DashboardDesc", icon_hl = "DashboardIcon", key_hl = "DashboardKey"},
           { action = "ene | startinsert",                                        desc = " New File",        icon = " ", key = "n", desc_hl = "DashboardDesc", icon_hl = "DashboardIcon", key_hl = "DashboardKey" },
           { action = "Telescope oldfiles",                                       desc = " Recent Files",    icon = " ", key = "r", desc_hl = "DashboardDesc", icon_hl = "DashboardIcon", key_hl = "DashboardKey" },
           { action = "Telescope live_grep",                                      desc = " Find Text",       icon = " ", key = "g", desc_hl = "DashboardDesc", icon_hl = "DashboardIcon", key_hl = "DashboardKey" },
-          { action = [[lua LazyVim.telescope.config_files()()]],                 desc = " Config",          icon = " ", key = "c", desc_hl = "DashboardDesc", icon_hl = "DashboardIcon", key_hl = "DashboardKey" },
+          { action = [[lua LazyVim.pick.config_files()()]],                 desc = " Config",          icon = " ", key = "c", desc_hl = "DashboardDesc", icon_hl = "DashboardIcon", key_hl = "DashboardKey" },
           { action = 'lua require("persistence").load()',                        desc = " Restore Session", icon = " ", key = "s", desc_hl = "DashboardDesc", icon_hl = "DashboardIcon", key_hl = "DashboardKey" },
           { action = "LazyExtras",                                               desc = " Lazy Extras",     icon = " ", key = "x", desc_hl = "DashboardDesc", icon_hl = "DashboardIcon", key_hl = "DashboardKey" },
           { action = "Lazy",                                                     desc = " Lazy",            icon = "󰒲 ", key = "l", desc_hl = "DashboardDesc", icon_hl = "DashboardIcon", key_hl = "DashboardKey" },
