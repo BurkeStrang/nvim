@@ -8,9 +8,12 @@ local conf = require("telescope.config").values
 local Path = require("plenary.path")
 local action_state = require("telescope.actions.state")
 
-local user_secrets_path_windows = os.getenv("USERPROFILE") .. "\\AppData\\Roaming\\Microsoft\\UserSecrets"
-local user_secrets_path_wsl = "~/.microsoft/usersecrets"
+-- Paths for user secrets
+local user_secrets_path_windows = os.getenv("USERPROFILE")
+  and os.getenv("USERPROFILE") .. "\\AppData\\Roaming\\Microsoft\\UserSecrets"
+local user_secrets_path_wsl = os.getenv("HOME") and os.getenv("HOME") .. "/.microsoft/usersecrets" or nil
 
+-- Function to list user secrets
 local function list_user_secrets()
   local user_secrets_path
 
@@ -18,8 +21,15 @@ local function list_user_secrets()
   if vim.loop.os_uname().sysname == "Windows_NT" then
     user_secrets_path = user_secrets_path_windows
   else
-    user_secrets_path = user_secrets_path_wsl
+    if user_secrets_path_wsl then
+      user_secrets_path = user_secrets_path_wsl
+    else
+      print("HOME environment variable is not set.")
+      return {}
+    end
   end
+
+  print("Using user secrets path: " .. user_secrets_path) -- Debugging line
 
   local secret_files = {}
   local path_obj = Path:new(user_secrets_path)
@@ -39,6 +49,7 @@ local function list_user_secrets()
   return secret_files
 end
 
+-- Function to open user secrets using Telescope
 function M.open_user_secrets()
   pickers
     .new({}, {
