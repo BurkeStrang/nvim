@@ -29,7 +29,7 @@ local function list_user_secrets()
     end
   end
 
-  print("Using user secrets path: " .. user_secrets_path) -- Debugging line
+  -- print("Using user secrets path: " .. user_secrets_path) -- Debugging line
 
   local secret_files = {}
   local path_obj = Path:new(user_secrets_path)
