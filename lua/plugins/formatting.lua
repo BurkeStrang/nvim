@@ -1,5 +1,3 @@
--- vim.fn.setenv("NEOVIM_POWERSHELL", "1")
-
 return {
   "sbdchd/neoformat",
   --config = function()
@@ -21,5 +19,4 @@ return {
   --end,
 }
 --HACK: this is really just for CSharp I can't get it to work with the defualt lazyvim setup
---TODO: need to figure out how to get this to work in both windows an wsl
---NOTE: when running in wsl with powershell the powershell profile adds unessessary header
+--

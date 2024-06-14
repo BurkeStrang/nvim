@@ -10,6 +10,7 @@ vim.filetype.add({ extension = { props = "xml" } })
 vim.filetype.add({ extension = { sln = "xml" } })
 vim.filetype.add({ extension = { nswag = "json" } })
 
+
 require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
