@@ -16,7 +16,7 @@ return {
       diagnostics = {
         underline = true,
         update_in_insert = false,
-        virtual_text = false,
+        virtual_text = true,
         severity_sort = true,
         signs = {
           text = {
@@ -88,7 +88,55 @@ return {
             },
           },
         },
+        rust_analyzer = {
+          settings = {
+            ["rust-analyzer"] = {
+              checkOnSave = {
+                command = "clippy",
+              },
+              cargo = {
+                loadOutDirsFromCheck = true,
+              },
+              procMacro = {
+                enable = true,
+              },
+            },
+          },
+        },
+        pyright = {},
         cssls = {},
+        jdtls = {
+          cmd = { "jdtls" },
+          root_dir = function(fname)
+            return require("lspconfig.util").root_pattern(".git")(fname)
+              or require("lspconfig.util").path.dirname(fname)
+          end,
+          settings = {
+            java = {
+              eclipse = {
+                downloadSources = true,
+              },
+              configuration = {
+                updateBuildConfiguration = "interactive",
+              },
+              maven = {
+                downloadSources = true,
+              },
+              implementationsCodeLens = {
+                enabled = true,
+              },
+              referencesCodeLens = {
+                enabled = true,
+              },
+              references = {
+                includeDecompiledSources = true,
+              },
+              format = {
+                enabled = true,
+              },
+            },
+          },
+        },
         tailwindcss = {
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)

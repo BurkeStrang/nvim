@@ -6,11 +6,26 @@ return {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
+    "hrsh7th/cmp-vsnip", -- add this line for vim-vsnip
+    "hrsh7th/vim-vsnip", -- add this line for vim-vsnip
+    "rafamadriz/friendly-snippets", -- add this line for additional snippets
     "zbirenbaum/copilot.lua", -- Add Copilot as a dependency
     {
       "zbirenbaum/copilot-cmp",
       config = function()
         require("copilot_cmp").setup()
+      end,
+    },
+    -- Add dadbod completion
+    {
+      "kristijanhusak/vim-dadbod-completion",
+      config = function()
+        vim.cmd([[
+          augroup DadbodCompletion
+            autocmd!
+            autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer { sources = {{ name = 'vim-dadbod-completion' }} }
+          augroup END
+        ]])
       end,
     },
   },
@@ -22,6 +37,11 @@ return {
       auto_brackets = {}, -- configure any filetype to auto add brackets
       completion = {
         completeopt = "menu,menuone,noinsert",
+      },
+      snippet = {
+        expand = function(args)
+          vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        end,
       },
       mapping = cmp.mapping.preset.insert({
         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -41,6 +61,8 @@ return {
         { name = "nvim_lsp" },
         { name = "path" },
         { name = "copilot" }, -- Add Copilot as a source
+        { name = "vim-dadbod-completion" }, -- Add Dadbod completion source
+        { name = "vsnip" }, -- Add vsnip as a source
       }, {
         { name = "buffer" },
       }),
@@ -86,5 +108,21 @@ return {
     cmp.event:on("menu_opened", function(event)
       LazyVim.cmp.add_missing_snippet_docs(event.window)
     end)
+
+    -- Determine the base directory and path separator
+    local is_windows = vim.loop.os_uname().version:match("Windows")
+    local base_dir = is_windows and vim.fn.getenv("LOCALAPPDATA") .. "\\nvim"
+      or vim.loop.os_homedir() .. "/.config/nvim"
+    local path_sep = is_windows and "\\" or "/"
+
+    -- Define the custom snippet directory
+    vim.g.vsnip_snippet_dir = base_dir .. path_sep .. "lua" .. path_sep .. "custom" .. path_sep .. "snippets"
+    -- Load custom snippets
+    vim.cmd([[
+      augroup VsnipCustomSnippets
+        autocmd!
+        autocmd BufEnter *.cs lua require("vim-vsnip").load_file(vim.g.vsnip_snippet_dir .. "/cs.json")
+      augroup END
+    ]])
   end,
 }

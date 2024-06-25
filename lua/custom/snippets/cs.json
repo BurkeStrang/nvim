@@ -1,0 +1,16 @@
+{
+  "XML Comment - Full Documentation": {
+    "prefix": "xmldoc",
+    "body": [
+      "/// <summary>",
+      "/// ${1:Description}",
+      "/// </summary>",
+      "${2}",
+      "/// <param name=\"${3:paramName}\">${4:Description}</param>",
+      "${5}",
+      "/// <returns>${6:Description}</returns>",
+      "${0}"
+    ],
+    "description": "Insert an XML full documentation comment"
+  }
+}
