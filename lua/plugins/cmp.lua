@@ -109,20 +109,20 @@ return {
       LazyVim.cmp.add_missing_snippet_docs(event.window)
     end)
 
-    -- Determine the base directory and path separator
-    local is_windows = vim.loop.os_uname().version:match("Windows")
-    local base_dir = is_windows and vim.fn.getenv("LOCALAPPDATA") .. "\\nvim"
-      or vim.loop.os_homedir() .. "/.config/nvim"
-    local path_sep = is_windows and "\\" or "/"
-
-    -- Define the custom snippet directory
-    vim.g.vsnip_snippet_dir = base_dir .. path_sep .. "lua" .. path_sep .. "custom" .. path_sep .. "snippets"
-    -- Load custom snippets
-    vim.cmd([[
-      augroup VsnipCustomSnippets
-        autocmd!
-        autocmd BufEnter *.cs lua require("vim-vsnip").load_file(vim.g.vsnip_snippet_dir .. "/cs.json")
-      augroup END
-    ]])
+    -- -- Determine the base directory and path separator
+    -- local is_windows = vim.loop.os_uname().version:match("Windows")
+    -- local base_dir = is_windows and vim.fn.getenv("LOCALAPPDATA") .. "\\nvim"
+    --   or vim.loop.os_homedir() .. "/.config/nvim"
+    -- local path_sep = is_windows and "\\" or "/"
+    --
+    -- -- Define the custom snippet directory
+    -- vim.g.vsnip_snippet_dir = base_dir .. path_sep .. "lua" .. path_sep .. "custom" .. path_sep .. "snippets"
+    -- -- Load custom snippets
+    -- vim.cmd([[
+    --   augroup VsnipCustomSnippets
+    --     autocmd!
+    --     autocmd BufEnter *.cs lua require("vim-vsnip").load_file(vim.g.vsnip_snippet_dir .. "/cs.json")
+    --   augroup END
+    -- ]])
   end,
 }
