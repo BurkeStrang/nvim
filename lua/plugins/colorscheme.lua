@@ -23,11 +23,16 @@ local specs = {
       -- conditional = "red",
       -- number = "magenta",
       -- variable = "#c8b38a",
-      variable = "#abcdef",
+      -- variable = "#789abc",
+      -- variable = "#87bddd", -- slightly more blue
+      variable = "#87bdbd", -- slightly more muted
+      -- variable = "#abefef", -- slightly more green
+      -- variable = "#abcdef",
       -- string = "magenta",
       -- type = "pink",
       -- preproc = "red",
       comment = "#556378",
+      bracket = "#c8b38a",
 
       -- this is the default for carbonfox
       -- bracket     = spec.fg2,           -- Brackets and Punctuation
