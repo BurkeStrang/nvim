@@ -105,38 +105,7 @@ return {
         },
         pyright = {},
         cssls = {},
-        jdtls = {
-          cmd = { "jdtls" },
-          root_dir = function(fname)
-            return require("lspconfig.util").root_pattern(".git")(fname)
-              or require("lspconfig.util").path.dirname(fname)
-          end,
-          settings = {
-            java = {
-              eclipse = {
-                downloadSources = true,
-              },
-              configuration = {
-                updateBuildConfiguration = "interactive",
-              },
-              maven = {
-                downloadSources = true,
-              },
-              implementationsCodeLens = {
-                enabled = true,
-              },
-              referencesCodeLens = {
-                enabled = true,
-              },
-              references = {
-                includeDecompiledSources = true,
-              },
-              format = {
-                enabled = true,
-              },
-            },
-          },
-        },
+        jdtls = {},
         tailwindcss = {
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)
