@@ -8,7 +8,8 @@ local palettes = {
   all = {
     -- comment = "#60728a",
     -- this is a comment
-    green = "#44ff99",
+    -- green = "#44ff99",
+    green = "#00cc00",
     yellow = "#55FF00", -- updated to a brighter yellow
     -- white = "#77ff77",
     -- blue = "cyan",
@@ -72,10 +73,10 @@ local specs = {
       builtin1 = "#29cccc", -- Builtin type
       -- builtin2 = "#ff0000", -- Builtin const
       builtin3 = "#ff7f7f", -- Not used
-      builtin0 = "#FF8000", -- Builtin variable
-      builtin2 = "#FF8000", -- Builtin const
+      -- builtin0 = "#FF8000", -- Builtin variable
+      builtin2 = "#D2691E", -- Builtin const
       comment = "#55607d", -- Comment
-      conditional = "#cc29cc", -- Conditional and loop
+      conditional = "#b227b2", -- Conditional and loop
       const = "#cc9629", -- Constants, imports and booleans
       -- dep = "#8f8f8f", -- Deprecated
       field = "#5f5fd4", -- Field
@@ -85,18 +86,18 @@ local specs = {
       -- func = "#5f5fb4", -- Functions and Titles
 
       ident = "#29cccc", -- Identifiers
-      keyword = "#cc29cc", -- Keywords
-      number = "#FF8000", -- Numbers
+      keyword = "#b227b2", -- Keywords
+      number = "#D2691E", -- Numbers
       -- operator = "#b9af8f", -- Operators
       preproc = "#ccacb3", -- PreProc
       regex = "#cc9629", -- Regex
-      statement = "#cc29cc", -- Statements
+      statement = "#b227b2", -- Statements
       string = "#00cc00", -- Strings
-      type = "#FF8000", -- Types
+      type = "#D2691E", -- Types
       -- variable = "#c89fa3", -- Variables
       -- variable = "#a78f93", -- slightly darker
       -- variable = "#b898a3", -- slightly brighter
-      variable = "pink",
+      variable = "#b898a3", -- Variables
 
       -- this is the default for carbonfox
       -- bracket     = spec.fg2,           -- Brackets and Punctuation
