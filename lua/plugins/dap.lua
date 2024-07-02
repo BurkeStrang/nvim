@@ -121,7 +121,7 @@ end
 
 function setup_debug_configs()
   local dap_ok, dap = pcall(require, "dap")
-  local config = require("custom.debug.dap_configs")
+  local config = require("custom.dap.dap_configs")
 
   if dap_ok then
     for language, dap_settings in pairs(config) do
