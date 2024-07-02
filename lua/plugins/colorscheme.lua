@@ -11,6 +11,7 @@ local palettes = {
     -- green = "#44ff99",
     green = "#00cc00",
     -- yellow = "#55FF00", -- updated to a brighter yellow
+    yellow = "#99CC00",
     -- white = "#77ff77",
     -- blue = "cyan",
     -- blue = { base = "#66a3b2", bright = "#67afcd", dim = "#5e91a5" },

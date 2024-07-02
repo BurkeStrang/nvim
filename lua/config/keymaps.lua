@@ -14,3 +14,18 @@ keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", opt) -- move line up(v)
 keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", opt) -- move line down(v)
 
 keymap.set("n", "<leader>ch", ":Cheatsheet<CR>", opt)
+
+-- Function to toggle line numbers
+function ToggleLineNumbers()
+  if vim.wo.number and vim.wo.relativenumber then
+    vim.wo.number = true
+    vim.wo.relativenumber = false
+  elseif vim.wo.number then
+    vim.wo.relativenumber = true
+  else
+    vim.wo.number = true
+  end
+end
+
+-- Keymap to toggle line numbers
+keymap.set("n", "<leader>tl", ":lua ToggleLineNumbers()<CR>", opt)
