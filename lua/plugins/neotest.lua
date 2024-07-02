@@ -1,5 +1,47 @@
-return {}
---[[ return {
+local neotest_keys = {
+  {
+    "n",
+    "<leader>us",
+    function()
+      require("neotest").summary.toggle()
+    end,
+    { desc = "Neotest: Open test summary window" },
+  },
+  {
+    "n",
+    "<leader>uf",
+    function()
+      require("neotest").run.run(vim.fn.expand("%"))
+    end,
+    { desc = "Neotest: Run tests in file" },
+  },
+  {
+    "n",
+    "<leader>un",
+    function()
+      require("neotest").run.run()
+    end,
+    { desc = "Neotest: Run nearest test" },
+  },
+  {
+    "n",
+    "<leader>ud",
+    function()
+      require("neotest").run.run({ strategy = "dap" })
+    end,
+    { desc = "Neotest: Debug nearest test" },
+  },
+  {
+    "n",
+    "<leader>ua",
+    function()
+      require("neotest").run.run({ suite = true })
+    end,
+    { desc = "Neotest: Run all tests in suite" },
+  },
+}
+
+return {
   {
     "nvim-neotest/neotest",
     event = "VeryLazy",
@@ -12,6 +54,7 @@ return {}
       "Issafalcon/neotest-dotnet",
       -- { dir = "~/repos/neotest-dotnet" },
     },
+    -- keys = fignvim.mappings.make_lazy_keymaps(neotest_keys, true),
     config = function()
       local neotest = require("neotest")
       neotest.setup({
@@ -48,4 +91,4 @@ return {}
       })
     end,
   },
-} ]]
+}
