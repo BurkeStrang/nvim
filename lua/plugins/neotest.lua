@@ -1,7 +1,7 @@
 local neotest_keys = {
   {
     "n",
-    "<leader>us",
+    "<leader>ts",
     function()
       require("neotest").summary.toggle()
     end,
@@ -9,7 +9,7 @@ local neotest_keys = {
   },
   {
     "n",
-    "<leader>uf",
+    "<leader>tf",
     function()
       require("neotest").run.run(vim.fn.expand("%"))
     end,
@@ -17,7 +17,7 @@ local neotest_keys = {
   },
   {
     "n",
-    "<leader>un",
+    "<leader>tn",
     function()
       require("neotest").run.run()
     end,
@@ -25,7 +25,7 @@ local neotest_keys = {
   },
   {
     "n",
-    "<leader>ud",
+    "<leader>td",
     function()
       require("neotest").run.run({ strategy = "dap" })
     end,
@@ -33,13 +33,33 @@ local neotest_keys = {
   },
   {
     "n",
-    "<leader>ua",
+    "<leader>ta",
     function()
       require("neotest").run.run({ suite = true })
     end,
     { desc = "Neotest: Run all tests in suite" },
   },
 }
+
+--- Creates a set of keymaps for lazy.nvim plugin configuration
+---@param mappings table List of mapping configurations compatible with vim.api.nvim_set_keymap()
+---@param[opt=false] perform_bind boolean True if the bindings should not be made by lazy.nvim
+---@return table Lazy Compatible keymaps
+function make_lazy_keymaps(mappings, perform_bind)
+  local lazy_keys = {}
+  for _, map in ipairs(mappings) do
+    table.insert(
+      lazy_keys,
+      vim.tbl_deep_extend("force", {
+        map[2],
+        perform_bind and map[3] or nil,
+        mode = map[1],
+      }, map[4] or {})
+    )
+  end
+
+  return lazy_keys
+end
 
 return {
   {
@@ -54,7 +74,7 @@ return {
       "Issafalcon/neotest-dotnet",
       -- { dir = "~/repos/neotest-dotnet" },
     },
-    -- keys = fignvim.mappings.make_lazy_keymaps(neotest_keys, true),
+    keys = make_lazy_keymaps(neotest_keys, true),
     config = function()
       local neotest = require("neotest")
       neotest.setup({

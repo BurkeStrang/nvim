@@ -13,67 +13,67 @@ local dap_keys = {
   },
   {
     "n",
-    "<leader>db",
+    "<leader>ib",
     ':lua require"dap".toggle_breakpoint()<CR>',
     { desc = "DAP Toggle Breakpoint" },
   },
   {
     "n",
-    "<leader>dB",
+    "<leader>iB",
     ':lua require"dap".set_breakpoint(vim.fn.input("Breakpoint condition: "))<CR>',
     { desc = "DAP Toggle Conditional Breakpoint" },
   },
   {
     "n",
-    "<leader>de",
+    "<leader>ie",
     ':lua require"dap".set_exception_breakpoints()<CR>',
     { desc = "DAP Set breakpoints on exceptions" },
   },
   {
     "n",
-    "<leader>dbc",
+    "<leader>ibc",
     ':lua require"dap".clear_breakpoints()<CR>',
     { desc = "DAP Clear all breakpoints on exceptions" },
   },
   {
     "n",
-    "<leader>dk",
+    "<leader>ik",
     ':lua require"dap".step_out()<CR>',
     { desc = "DAP Step Out" },
   },
   {
     "n",
-    "<leader>dj",
+    "<leader>ij",
     ':lua require"dap".step_into()<CR>',
     { desc = "DAP Step Into" },
   },
   {
     "n",
-    "<leader>dl",
+    "<leader>il",
     ':lua require"dap".step_over()<CR>',
     { desc = "DAP Step Over" },
   },
   {
     "n",
-    "<leader>dp",
+    "<leader>ip",
     ':lua require"dap".up()<CR>',
     { desc = "DAP Go up in current stacktrace without stepping" },
   },
   {
     "n",
-    "<leader>dn",
+    "<leader>in",
     ':lua require"dap".down()<CR>',
     { desc = "DAP Go down in current stacktrace without stepping" },
   },
   {
     "n",
-    "<leader>dc",
+    "<leader>ic",
     ':lua require"dap".disconnect();require"dap".close();require"dapui".close()<CR>',
     { desc = "DAP Disconnect and close nvim-dap and dap-ui. Doesn't kill the debugee" },
   },
   {
     "n",
-    "<leader>dC",
+    "<leader>iC",
     ':lua require"dap".terminate();require"dap".close()<CR>',
     { desc = "DAP Terminates the debug session}, also killing the debugee" },
   },
@@ -85,13 +85,13 @@ local dap_keys = {
   },
   {
     "n",
-    "<leader>d?",
+    "<leader>i?",
     ':lua local widgets = require"dap.ui.widgets";widgets.centered_float(widgets.scopes)<CR>',
     { desc = "DAP Show scopes in sidebar" },
   },
   {
     "n",
-    "<leader>dr",
+    "<leader>ir",
     ':lua require"dap".repl.open({}, "vsplit")<CR><C-w>l',
     { desc = "DAP Opens repl in vsplit" },
   },
@@ -99,11 +99,42 @@ local dap_keys = {
 
 local install_dir = vim.fn.stdpath("data") .. "/mason"
 
+--- Creates a set of keymaps for lazy.nvim plugin configuration
+---@param mappings table List of mapping configurations compatible with vim.api.nvim_set_keymap()
+---@param perform_bind [opt=false] perform_bind boolean True if the bindings should not be made by lazy.nvim
+---@return table Lazy Compatible keymaps
+function make_lazy_keymaps(mappings, perform_bind)
+  local lazy_keys = {}
+  for _, map in ipairs(mappings) do
+    table.insert(
+      lazy_keys,
+      vim.tbl_deep_extend("force", {
+        map[2],
+        perform_bind and map[3] or nil,
+        mode = map[1],
+      }, map[4] or {})
+    )
+  end
+
+  return lazy_keys
+end
+
+function setup_debug_configs()
+  local dap_ok, dap = pcall(require, "dap")
+  local config = require("custom.debug.dap_configs")
+
+  if dap_ok then
+    for language, dap_settings in pairs(config) do
+      dap.configurations[language] = dap_settings
+    end
+  end
+end
+
 return {
   {
     {
       "mfussenegger/nvim-dap",
-      keys = dap_keys,
+      keys = make_lazy_keymaps(dap_keys, true),
       dependencies = {
         "mason.nvim",
         "jbyuki/one-small-step-for-vimkind",
@@ -169,7 +200,7 @@ return {
           callback({ type = "server", host = config.host or "127.0.0.1", port = config.port or 8086 })
         end
 
-        -- fignvim.debug.setup_debug_configs()
+        setup_debug_configs()
       end,
     },
     {
